@@ -1,0 +1,43 @@
+verison: 2
+
+models:
+    - name: stg_btc
+      columns:
+        - name: HASH_KEY
+          tests:
+            - unique
+            - not_null
+
+
+    - name: stg_btc_outputs
+      tests:
+        - dbt_utils.equal_rowcount:
+            compare_model: ref('stg_btc_outputs_py')
+
+    - name: whale_alert
+      latest_version: 2
+      config:
+        contract:
+          enforced: true
+      columns:
+        - name: output_address
+          data_type: string
+          data_tests:
+            - unique
+            - assert_valid_btc_address
+        - name: total_sent
+          data_type: float
+        - name: tx_count
+          data_type: int
+      versions:
+        - v: 1
+          deprecation_date: 2026-01-01
+          config:
+            enabled: false
+          
+        - v: 2
+          columns:
+            - include: all
+              exclude: [total_sent_usd]
+    
+        
