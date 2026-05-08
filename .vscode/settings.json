@@ -1,0 +1,10 @@
+{
+    "dbt.dbtPythonPathOverride": "'); print(sys.executable); print('",
+    "dbt.deferConfigPerProject": {
+        "": {
+            "manifestPathForDeferral": "c:\\Eric\\doc\\snowflake_dbt\\BTC\\venv\\Scripts",
+            "manifestPathType": "local"
+        }
+    },
+    "python-envs.defaultEnvManager": "ms-python.python:system"
+}
